@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="title='Play'">
+<head th:replace="fragments :: head(${title})"></head>
+<body>
+<div th:replace="fragments :: topnav"></div>
+
+<main class="container">
+<div th:replace="fragments :: scoreHud"></div>
+
+  <h2 class="fade-up">Which one is worth more?</h2>
+
+  <div class="grid-2 fade-up" style="--i:1">
+    <!-- Card A -->
+    <div class="coin card clickable tilt" data-choice="A" title="Choose Coin A">
+      <img th:src="${round.coinA.image}" alt="" />
+      <h3 th:text="${round.coinA.name}">Coin A</h3>
+      <p class="muted">Tap to choose</p>
+    </div>
+
+    <!-- Card B -->
+    <div class="coin card clickable tilt" data-choice="B" title="Choose Coin B">
+      <img th:src="${round.coinB.image}" alt="" />
+      <h3 th:text="${round.coinB.name}">Coin B</h3>
+      <p class="muted">Tap to choose</p>
+    </div>
+  </div>
+
+  <p th:if="${info}" class="muted fade-up" style="--i:2" th:text="${info}"></p>
+
+  <!-- Accessibility fallback -->
+  <form class="choices fade-up" method="post" th:action="@{/answer}" style="--i:3">
+    <button name="choice" value="A" class="btn primary ripple">Coin A is higher</button>
+    <button name="choice" value="B" class="btn primary ripple">Coin B is higher</button>
+  </form>
+
+  <!-- Hidden form used by JS on card click -->
+  <form id="answerForm" method="post" th:action="@{/answer}" style="display:none">
+    <input type="hidden" name="choice" id="choiceInput">
+  </form>
+</main>
+</body>
+</html>

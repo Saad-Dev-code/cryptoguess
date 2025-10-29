@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="title='Login'">
+<head th:replace="fragments :: head(${title})"></head>
+<body>
+<main class="container center hero">
+  <h1 class="title fade-up">Welcome to Crypto Guess</h1>
+  <p class="subtitle fade-up" style="--i:1">Pick a nickname to start playing.</p>
+  <form method="post" th:action="@{/login}" class="card glass fade-up" style="--i:2">
+    <input name="username" placeholder="Your name" required>
+    <button type="submit" class="btn primary ripple">Enter</button>
+  </form>
+  <p th:if="${param.e}" class="muted fade-up" style="--i:3">Please enter a valid name.</p>
+</main>
+</body>
+</html>

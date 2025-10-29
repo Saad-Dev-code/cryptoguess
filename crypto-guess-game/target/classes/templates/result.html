@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="title='Result'">
+<head th:replace="fragments :: head(${title})"></head>
+<body data-correct="${round.correctGuess}">
+<div th:replace="fragments :: topnav"></div>
+
+<main class="container">
+<div th:replace="fragments :: scoreHud"></div>
+
+  <h2 class="fade-up" th:text="${round.correctGuess} ? '✅ Correct!' : '❌ Not this time'">Result</h2>
+
+  <div class="grid-2 fade-up" style="--i:1">
+    <div class="coin card" th:classappend="${round.correct == 'A'} ? ' winner pulse'">
+      <img th:src="${round.coinA.image}" alt="" />
+      <h3 th:text="${round.coinA.name}">Coin A</h3>
+      <p>Price: $<span th:text="${#numbers.formatDecimal(round.coinA.priceUsd,1,2)}">0</span></p>
+    </div>
+    <div class="coin card" th:classappend="${round.correct == 'B'} ? ' winner pulse'">
+      <img th:src="${round.coinB.image}" alt="" />
+      <h3 th:text="${round.coinB.name}">Coin B</h3>
+      <p>Price: $<span th:text="${#numbers.formatDecimal(round.coinB.priceUsd,1,2)}">0</span></p>
+    </div>
+  </div>
+
+  <div class="actions fade-up" style="--i:2">
+    <a class="btn primary ripple" th:href="@{/play}">Next Round</a>
+    <form th:action="@{/reset}" method="post" style="display:inline">
+      <button class="btn ghost ripple" type="submit">Reset Score</button>
+    </form>
+  </div>
+
+  <section class="fade-up" style="--i:3">
+    <h4>Your Badges</h4>
+    <div class="badges">
+      <span class="badge" th:each="b : ${session.badges}" th:text="${b.label}">Badge</span>
+      <span th:if="${#lists.isEmpty(session.badges)}" class="muted">Earn badges at 3, 5, 10, 20 correct!</span>
+    </div>
+  </section>
+</main>
+</body>
+</html>

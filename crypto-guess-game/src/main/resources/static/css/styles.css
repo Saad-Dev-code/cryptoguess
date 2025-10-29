@@ -1,0 +1,124 @@
+/* ====== Base Theme ====== */
+:root{
+  --bg1:#0b0f24; --bg2:#141a39; --glass:#0f162aDD;
+  --line:#243158; --fg:#e9f1ff; --muted:#91a0c2;
+  --primary:#5b7cfa; --primary-2:#3c60ff;
+  --ok:#34d399; --danger:#f87171; --shadow: 0 10px 30px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; color:var(--fg); font-family:Inter,system-ui,Segoe UI,Arial;
+  background: radial-gradient(1200px 600px at 20% -10%, #1d2250 0%, transparent 60%),
+              radial-gradient(1000px 800px at 120% 20%, #102953 0%, transparent 60%),
+              linear-gradient(180deg,var(--bg1),var(--bg2));
+}
+
+/* ====== Layout ====== */
+.container{max-width:980px;margin:0 auto;padding:28px}
+.center{text-align:center}
+.spacer{flex:1}
+.glass{background:var(--glass); backdrop-filter: blur(10px)}
+.muted{color:var(--muted)}
+.dot{display:inline-block;width:6px;height:6px;background:#31406f;border-radius:50%;margin:0 10px;vertical-align:middle}
+
+.nav{
+  position:sticky; top:0; z-index:10;
+  display:flex; align-items:center; gap:12px;
+  border-bottom:1px solid var(--line); padding:12px 16px;
+}
+.nav .brand{color:#cfe1ff;text-decoration:none;font-weight:700}
+.session{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.hi b{color:#fff}
+
+/* ====== Hero ====== */
+.hero{padding-top:6vh; padding-bottom:6vh}
+.title{font-size:clamp(28px,5vw,44px);margin:8px 0 6px}
+.subtitle{font-size:clamp(16px,2.6vw,18px);color:var(--muted);margin:0 0 18px}
+.floating-badges .badge{margin:6px}
+
+/* ====== Cards / Grid ====== */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.card{
+  border:1px solid var(--line); border-radius:16px; padding:18px;
+  box-shadow: var(--shadow); transition: transform .2s ease, border-color .2s ease;
+}
+.coin{ text-align:center }
+.coin img{ width:88px;height:88px;border-radius:50%;display:block;margin:12px auto 10px; filter: drop-shadow(0 6px 12px rgba(0,0,0,.35)) }
+.clickable{ cursor:pointer }
+.clickable:hover{ transform: translateY(-3px) }
+.winner{ outline:2px solid var(--ok); }
+.pulse{ animation: pulse 1.4s ease-out 2 }
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(52,211,153,.7)}
+  100%{box-shadow:0 0 0 22px rgba(52,211,153,0)}
+}
+
+/* Tilt micro-interaction */
+.tilt{transform-style:preserve-3d}
+.tilt:hover img{ transform: translateZ(12px) scale(1.03) }
+.tilt img{ transition: transform .25s ease }
+
+/* ====== Buttons / Inputs ====== */
+.btn, button, .primary, .ghost{
+  font: 600 15px Inter,system-ui;
+  border-radius:12px; padding:12px 18px;
+  border:1px solid transparent; cursor:pointer;
+}
+.btn.primary, .primary{
+  background: linear-gradient(180deg,var(--primary),var(--primary-2));
+  color:white; border: none; box-shadow: var(--shadow);
+}
+.btn.ghost, .ghost{
+  background: transparent; color:#e0ebff; border:1px solid var(--line)
+}
+.link{background:none;border:none;color:#9ec0ff;padding:6px 10px}
+input{
+  padding:12px 14px;border-radius:10px;border:1px solid var(--line);
+  background:#0d1430;color:#e8f0ff;width:280px;outline:none;
+}
+
+/* Ripple effect (JS will add .ripple) */
+.btn.ripple, .ripple{ position:relative; overflow:hidden }
+.ripple::after{
+  content:""; position:absolute; inset:0; transform:scale(0);
+  background:radial-gradient(circle, rgba(255,255,255,.35) 10%, transparent 11%) center/10px 10px;
+  opacity:.6; transition: transform .45s ease, opacity .6s ease;
+}
+.ripple:active::after{ transform:scale(3); opacity:0 }
+
+/* ====== Animations (fade/slide) ====== */
+.fade-up{ opacity:0; transform: translateY(12px); animation: fadeUp .6s ease forwards; animation-delay: calc(var(--i,0) * .08s); }
+@keyframes fadeUp{ to{opacity:1; transform:none} }
+
+/* ====== Utility ====== */
+.badge{
+  border:1px solid #2b3d6f; border-radius:999px; padding:4px 10px;
+  background:linear-gradient(180deg,#13224c, #0e1a3b); font-size:12px;
+}
+.actions{display:flex;gap:14px;align-items:center;margin-top:18px;flex-wrap:wrap}
+.choices{display:flex;gap:16px;justify-content:center;margin:24px 0}
+
+/* ===== Score HUD ===== */
+.score-hud{
+  display:flex; gap:22px; justify-content:space-between; align-items:center;
+  border:1px solid var(--line); border-radius:16px; padding:14px 16px; margin-bottom:18px;
+}
+.hud-left{display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+.hud-score .hud-value{ font-size:26px; font-weight:800; margin-left:8px }
+.hud-label{ color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.06em }
+.hud-badge .badge{ margin-left:8px }
+
+.hud-right{flex:1; min-width:240px}
+.hud-progress-row{ display:flex; gap:12px; align-items:baseline; justify-content:space-between }
+.hud-remaining{ color:#cfe1ff; font-size:13px }
+
+.hud-progress{ display:flex; gap:12px; align-items:center; margin-top:6px }
+.hud-bar{ flex:1; height:10px; border-radius:999px; background:#0e1a3b; border:1px solid #223264; overflow:hidden }
+.hud-fill{ height:100%; background:linear-gradient(90deg,var(--primary),var(--ok)); width:0 }
+.hud-pct{ width:48px; text-align:right; color:#cfe1ff; font-weight:600 }
+
+/* small pop when score increases (optional) */
+.hud-value.bounce{ animation: scorePop .5s ease }
+@keyframes scorePop{ 0%{transform:scale(1)} 30%{transform:scale(1.25)} 100%{transform:scale(1)} }
+

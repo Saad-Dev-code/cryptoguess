@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="title='Home'">
+<head th:replace="fragments :: head(${title})"></head>
+<body>
+<div th:replace="fragments :: topnav"></div>
+
+<main class="container center hero">
+<div th:replace="fragments :: scoreHud"></div>
+
+  <h1 class="title fade-up">Crypto Guess Game</h1>
+  <p class="subtitle fade-up" style="--i:1">
+    Guess which coin is worth more in USD. Earn badges as you go!
+  </p>
+
+  <div class="cta fade-up" style="--i:2">
+    <form th:action="@{/play}" method="get">
+      <button class="btn primary ripple">Start Game</button>
+    </form>
+    <form th:action="@{/reset}" method="post" style="margin-top:1rem">
+      <button type="submit" class="btn ghost ripple">Reset Score</button>
+    </form>
+  </div>
+<br>
+  <div class="floating-badges fade-up" style="--i:3">
+    <span class="badge">Rookie 🎯</span>
+    <span class="badge">Apprentice 🛡️</span>
+    <span class="badge">Pro 🏆</span>
+    <span class="badge">Legend 👑</span>
+  </div>
+</main>
+</body>
+</html>
